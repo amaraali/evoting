@@ -6,6 +6,15 @@ if (!isset($_SESSION["login"])){
 	redirect("../login");
 }
 
+$kode_jurusan = $_SESSION["kode_jurusan"];
+$jurusan = query("SELECT * FROM jurusan WHERE kode_jurusan=$kode_jurusan")[0];
+
+$fakultas = query("SELECT * FROM fakultas WHERE kode_fakultas = $jurusan[kode_fakultas] ")[0];
+
+$calon_jurusan = query("SELECT * FROM calon WHERE id_unit = $kode_jurusan AND id_tingkatan = 1 ORDER BY no_urut");
+$calon_fakultas = query("SELECT * FROM calon WHERE id_unit = $jurusan[kode_fakultas] AND id_tingkatan = 2 ORDER BY no_urut");
+$calon_univ = query("SELECT * FROM calon WHERE id_tingkatan = 3 ORDER BY no_urut");
+
 ?>
 
 
@@ -86,87 +95,125 @@ if (!isset($_SESSION["login"])){
 </header>
  -->
 <main>
-
+<form action="<?= $config["base_url"];?>actions/action_vote.php" method="post">
   <div class="album py-5 bg-light">
     <div class="container">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <div class="card">
+	<h3 class="card-title text-center p-3">Hima <?php echo $jurusan["nama_jurusan"]; ?></h3>
+      <div class="row justify-content-center row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         
+        <?php foreach ($calon_jurusan as $key => $value):?>
         <div class="col">
-          <div class="card shadow-sm">
-          	<h5 class="card-title text-center p-2">Nomor Paslon</h5>
+          <div class="card shadow-sm mb-4">
+          	<h5 class="card-title text-center p-2"><?= $value["no_urut"]; ?></h5>
           	<div class="row text-center">
           	<div class="col-6 ">
            		<img src="../images/placeholder.png" class="img-fluid rounded mx-auto d-block" style="max-width: 100%;" alt="...">
-           		<p class="card-text">Nama Calon</p>
+           		<p class="card-text"><?= $value["nama_ketua"]; ?></p>
         	</div>
         	<div class="col-6">
         		<img src="../images/placeholder.png" class="img-fluid rounded mx-auto d-block" style="max-width: 100%;" alt="...">
-        		<p class="card-text">Nama Calon</p>
+        		<p class="card-text"><?= $value["nama_wakil"]; ?></p>
         	</div>
         	</div>
             <div class="card-body">
               	<div class="form-check d-flex justify-content-center align-items-center">
-					<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+					<input class="form-check-input" type="radio" name="pilihjurusan" id="pilihjurusan" value="<?= $value["id"]; ?>">
               	</div>
             </div>
           </div>
         </div>
-
-        <div class="col">
-          <div class="card shadow-sm">
-          	<h5 class="card-title text-center p-2">Nomor Paslon</h5>
-          	<div class="row text-center">
-          	<div class="col-6 ">
-           		<img src="../images/placeholder.png" class="img-fluid rounded mx-auto d-block" style="max-width: 100%;" alt="...">
-           		<p class="card-text">Nama Calon</p>
-        	</div>
-        	<div class="col-6">
-        		<img src="../images/placeholder.png" class="img-fluid rounded mx-auto d-block" style="max-width: 100%;" alt="...">
-        		<p class="card-text">Nama Calon</p>
-        	</div>
-        	</div>
-            <div class="card-body">
-              	<div class="form-check d-flex justify-content-center align-items-center">
-					<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-              	</div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="col">
-          <div class="card shadow-sm">
-          	<h5 class="card-title text-center p-2">Nomor Paslon</h5>
-          	<div class="row text-center">
-          	<div class="col-6 ">
-           		<img src="../images/placeholder.png" class="img-fluid rounded mx-auto d-block" style="max-width: 100%;" alt="...">
-           		<p class="card-text">Nama Calon</p>
-        	</div>
-        	<div class="col-6">
-        		<img src="../images/placeholder.png" class="img-fluid rounded mx-auto d-block" style="max-width: 100%;" alt="...">
-        		<p class="card-text">Nama Calon</p>
-        	</div>
-        	</div>
-            <div class="card-body">
-              	<div class="form-check d-flex justify-content-center align-items-center">
-					<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-              	</div>
-            </div>
-          </div>
-        </div>
-
+        <?php endforeach; ?>
+      </div>
       </div>
     </div>
   </div>
 
+
+
+
+
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+    <div class="card">
+	<h3 class="card-title text-center p-3">BEM <?php echo $fakultas["nama_fakultas"]; ?></h3>
+      <div class="row justify-content-center row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+        <?php foreach ($calon_fakultas as $key => $value): ?>
+        <div class="col">
+          <div class="card shadow-sm mb-4">
+          	<h5 class="card-title text-center p-2"><?= $value["no_urut"]; ?></h5>
+          	<div class="row text-center">
+          	<div class="col-6 ">
+           		<img src="../images/placeholder.png" class="img-fluid rounded mx-auto d-block" style="max-width: 100%;" alt="...">
+           		<p class="card-text"><?= $value["nama_ketua"]; ?></p>
+        	</div>
+        	<div class="col-6">
+        		<img src="../images/placeholder.png" class="img-fluid rounded mx-auto d-block" style="max-width: 100%;" alt="...">
+        		<p class="card-text"><?= $value["nama_wakil"]; ?></p>
+        	</div>
+        	</div>
+            <div class="card-body">
+              	<div class="form-check d-flex justify-content-center align-items-center">
+					<input class="form-check-input" type="radio" name="pilihfakultas" id="pilihfakultas" value="<?= $value["id"]; ?>">
+              	</div>
+            </div>
+          </div>
+        </div>
+        <?php endforeach; ?>
+       </div>
+    </div>
+  </div>
+</div>
+	
+
+	<div class="album py-5 bg-light">
+    <div class="container">
+    <div class="card">
+	<h3 class="card-title text-center p-3">BEM KM</h3>
+      <div class="row justify-content-center row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        
+        <?php foreach ($calon_univ as $key => $value):?>
+        <div class="col">
+          <div class="card shadow-sm mb-4">
+          	<h5 class="card-title text-center p-2"><?= $value["no_urut"]; ?></h5>
+          	<div class="row text-center">
+          	<div class="col-6 ">
+           		<img src="../images/placeholder.png" class="img-fluid rounded mx-auto d-block" style="max-width: 100%;" alt="...">
+           		<p class="card-text"><?= $value["nama_ketua"]; ?></p>
+        	</div>
+        	<div class="col-6">
+        		<img src="../images/placeholder.png" class="img-fluid rounded mx-auto d-block" style="max-width: 100%;" alt="...">
+        		<p class="card-text"><?= $value["nama_wakil"]; ?></p>
+        	</div>
+        	</div>
+            <div class="card-body">
+              	<div class="form-check d-flex justify-content-center align-items-center">
+					<input class="form-check-input" type="radio" name="pilihuniv" id="pilihuniv" value="<?= $value["id"]; ?>">
+              	</div>
+            </div>
+          </div>
+        </div>
+        <?php endforeach; ?>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+  	<div class="row justify-content-center">
+  	<div class="col-3">
+  		<button class="btn w-100 btn-lg btn-primary" name="vote" type="submit">Vote</button>
+  	</div>
+  	</div>
+  </div>
+  </form>
 </main>
 
 <footer class="text-muted py-5">
   <div class="container">
     <p class="float-end mb-1">
       <a href="#">Back to top</a>
-    </p>
-    <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-    <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.0/getting-started/introduction/">getting started guide</a>.</p>
   </div>
 </footer>
 

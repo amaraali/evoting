@@ -22,7 +22,7 @@ if(isset($_POST["login"])){
 			$_SESSION["id_user"] = $row["id"];
 			$_SESSION["nama"] = $row["nama"];
 			$_SESSION["is_admin"] = $row["is_admin"];
-			$_SESSION["id_jurusan"] = $row["id_jurusan"];
+			$_SESSION["kode_jurusan"] = $row["kode_jurusan"];
 
 			// cek remember me
 			if(isset($_POST['remember'])){
