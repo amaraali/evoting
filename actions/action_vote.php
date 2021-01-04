@@ -14,6 +14,6 @@ require '../functions.php';
 	mysqli_query($conn, "INSERT INTO vote (id, id_calon, id_user) VALUES (null, $vote_fakultas, $id_user )");
 	mysqli_query($conn, "INSERT INTO vote (id, id_calon, id_user) VALUES (null, $vote_univ, $id_user )");
 
-redirect("logout");
+redirect("pages/terimakasih", ['pesan' => tulis_alert('success', 'Terima kasih telah berpartisipasi.')]);
 // }
 ?>

@@ -1,6 +1,6 @@
 <?php 
 require 'config.php';
-
+date_default_timezone_set("Asia/Jakarta");
 $conn= mysqli_connect($config["db_host"], $config["db_username"], $config["db_password"], $config["db_name"]);
 
 function query ($query){
@@ -83,9 +83,9 @@ function ubah ($data){
 
 
 
-function hapus($id){
+function hapus($id, $apa){
 	global $conn;
-	mysqli_query($conn, "DELETE FROM users WHERE id=$id");
+	mysqli_query($conn, "DELETE FROM $apa WHERE id=$id");
 	return mysqli_affected_rows($conn);
 }
 
@@ -162,7 +162,6 @@ function redirect($page='', $params = []){
 	header("Location: ".$config["base_url"].$page.".php".$param);	
 	exit;
 }
-
 
 
 ?>

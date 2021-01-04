@@ -9,7 +9,7 @@ require '../functions.php';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Sistem Informasi e-Voting Pemira 2020">
-    <meta name="author" content="amara, fachrizal, bharaka, ghamal">
+    <meta name="author" content="amara, fachrizal, bharaka diwalik, ghamal">
     <meta name="generator" content="Jekyll v4.1.1">
     <title>e-Voting</title>
     <!-- Bootstrap core CSS -->
@@ -17,6 +17,7 @@ require '../functions.php';
     <link rel="shortcut icon" type="image/png" href="../img/favicons.png">
 
     <!-- Favicons -->
+    
 
 
 

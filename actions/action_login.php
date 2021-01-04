@@ -30,7 +30,7 @@ if(isset($_POST["login"])){
 				setcookie('key', hash('sha256', $username['username']), time()+60);
 			}
 			if ($row["is_admin"]==1) {
-				redirect("pages/konfigurasi");
+				redirect("pages/admin/dashboard");
 			}else{
 				redirect("pages/surat_suara");
 			}
