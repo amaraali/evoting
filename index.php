@@ -12,5 +12,3 @@ if(!isset($_SESSION['username'])){
 		redirect("pages/surat_suara");
 	}
 }
-//die('hi');
-?>
