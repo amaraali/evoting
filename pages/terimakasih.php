@@ -20,7 +20,7 @@ if (!isset($_SESSION["login"])) {
   <meta name="description" content="">
   <meta name="author" content="amara, bharaka, fachrizal, ghamal">
   <meta name="generator" content="Hugo 0.79.0">
-  <title>e-Voting Pemira 2020</title>
+  <title>e-Voting Pemira 2021</title>
   <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
 
 
@@ -59,7 +59,7 @@ if (!isset($_SESSION["login"])) {
       <div class="container">
         <div class="alert alert-success" role="alert">
           <h4 class="alert-heading">Terima Kasih!</h4>
-          <p>Telah berpartisipasi pada Pemilihan Umum Raya 2020</p>
+          <p>Telah berpartisipasi pada Pemilihan Umum Raya 2021</p>
           <a type="button" class="btn btn-primary" href="../logout.php">Logout</a>
         </div>
       </div>

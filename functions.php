@@ -1,29 +1,32 @@
-<?php 
+<?php
 require 'config.php';
 date_default_timezone_set("Asia/Jakarta");
-$conn= mysqli_connect($config["db_host"], $config["db_username"], $config["db_password"], $config["db_name"]);
+$conn = mysqli_connect($config["db_host"], $config["db_username"], $config["db_password"], $config["db_name"]);
 
-function query ($query){
+function query($query)
+{
 	global $conn;
-	$result = mysqli_query ($conn, $query);
-	$rows=[];
+	$result = mysqli_query($conn, $query);
+	$rows = [];
 	while ($row = mysqli_fetch_assoc($result)) {
 		$rows[] = $row;
 	}
 	return $rows;
 }
 
-function exec_query($query){
+function exec_query($query)
+{
 	global $conn;
-	$result = mysqli_query ($conn, $query);
+	$result = mysqli_query($conn, $query);
 
 	return mysqli_affected_rows($conn);
 }
 
-function tambah ($data){
+function tambah($data)
+{
 	global $conn;
 
-	$username = strtolower ( stripslashes ($data["username"]) );
+	$username = strtolower(stripslashes($data["username"]));
 	$password = mysqli_real_escape_string($conn, $data["password"]);
 	$password2 = mysqli_real_escape_string($conn, $data["password2"]);
 	$nama = $data["nama"];
@@ -34,7 +37,7 @@ function tambah ($data){
 	// cek username sudah ada belum
 	$result = mysqli_query($conn, "SELECT username FROM users WHERE username = '$username'");
 
-	if(mysqli_fetch_assoc($result)) {
+	if (mysqli_fetch_assoc($result)) {
 		echo "<script>
 					alert('Username yang dipilih sudah terdaftar!')
 				</script>";
@@ -42,7 +45,7 @@ function tambah ($data){
 	}
 
 	// cek konfirmasi password
-	if ($password !== $password2){
+	if ($password !== $password2) {
 		echo "<script>
 				alert('Konfirmasi password tidak sesuai!');
 			</script>";
@@ -51,7 +54,7 @@ function tambah ($data){
 
 	// enkripsi password
 	$password = password_hash($password, PASSWORD_DEFAULT);
-	
+
 	// tambah data ke data base
 	mysqli_query($conn, "INSERT INTO users VALUES ('', '$username', '$password', '$nama', '$level', '$email', '$phone')");
 
@@ -59,7 +62,8 @@ function tambah ($data){
 }
 
 
-function ubah ($data){
+function ubah($data)
+{
 	global $conn;
 	$id = $data["id"];
 	$nama = htmlspecialchars($data["nama"]);
@@ -83,7 +87,8 @@ function ubah ($data){
 
 
 
-function hapus($id, $apa){
+function hapus($id, $apa)
+{
 	global $conn;
 	mysqli_query($conn, "DELETE FROM $apa WHERE id=$id");
 	return mysqli_affected_rows($conn);
@@ -91,11 +96,12 @@ function hapus($id, $apa){
 
 
 
-function registrasi($data){
+function registrasi($data)
+{
 
 	global $conn;
 
-	$username = strtolower ( stripslashes ($data["username"]) );
+	$username = strtolower(stripslashes($data["username"]));
 	$password = mysqli_real_escape_string($conn, $data["password"]);
 	$password2 = mysqli_real_escape_string($conn, $data["password2"]);
 	$nama = $data["nama"];
@@ -106,7 +112,7 @@ function registrasi($data){
 	// cek username sudah ada belum
 	$result = mysqli_query($conn, "SELECT username FROM users WHERE username = '$username'");
 
-	if(mysqli_fetch_assoc($result)) {
+	if (mysqli_fetch_assoc($result)) {
 		echo "<script>
 					alert('Username yang dipilih sudah terdaftar!')
 				</script>";
@@ -114,7 +120,7 @@ function registrasi($data){
 	}
 
 	// cek konfirmasi password
-	if ($password !== $password2){
+	if ($password !== $password2) {
 		echo "<script>
 				alert('Konfirmasi password tidak sesuai!');
 			</script>";
@@ -123,12 +129,11 @@ function registrasi($data){
 
 	// enkripsi password
 	$password = password_hash($password, PASSWORD_DEFAULT);
-	
+
 	// tambah data ke data base
 	mysqli_query($conn, "INSERT INTO users VALUES ('', '$username', '$password', '$nama', '$level', '$email', '$phone')");
 
 	return mysqli_affected_rows($conn);
-
 }
 
 function dd($arr)
@@ -138,30 +143,30 @@ function dd($arr)
 	die;
 }
 
-function cek_level($yg_boleh){
+function cek_level($yg_boleh)
+{
 	$level_dia = $_SESSION['level'];
-	if(!in_array($level_dia, $yg_boleh)){
+	if (!in_array($level_dia, $yg_boleh)) {
 		die("Anda tidak memiliki akses!");
 		header("Location: pages/home.php");
 	}
 }
 
-function tulis_alert($type, $kalimat){
-	return '<div class="alert alert-'.$type.' alert-dismissible fade show" role="alert">
-			  '.$kalimat.'
+function tulis_alert($type, $kalimat)
+{
+	return '<div class="alert alert-' . $type . ' alert-dismissible fade show" role="alert">
+			  ' . $kalimat . '
 			</div>';
 }
 
-function redirect($page='', $params = []){
+function redirect($page = '', $params = [])
+{
 	global $config;
 	$param = '';
-	if(count($params) > 0){
-		$param = '?'.http_build_query($params);
+	if (count($params) > 0) {
+		$param = '?' . http_build_query($params);
 	}
 	// die("Location: ".$config["base_url"].$page.".php".$param);
-	header("Location: ".$config["base_url"].$page.".php".$param);	
+	header("Location: " . $config["base_url"] . $page . ".php" . $param);
 	exit;
 }
-
-
-?>

@@ -6,9 +6,7 @@ if (!isset($_SESSION["login"])){
   redirect("../login");
 
 }
-
 $user = query("SELECT * FROM users") ;
-
 ?>
 
  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">

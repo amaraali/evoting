@@ -1,7 +1,6 @@
 <?php
 session_start();
 require '../../functions.php';
-
 ?>
 <html lang="en">
 
@@ -9,7 +8,7 @@ require '../../functions.php';
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
-  <meta name="author" content="amara, fachrizal, bharaka diwalik, ghamal, zaenal">
+  <meta name="author" content="amara, afif, fandyka, chae">
   <meta name="generator" content="Hugo 0.79.0">
   <title>Administrator</title>
   <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
@@ -123,7 +122,7 @@ require '../../functions.php';
             </li>
           </ul>
         </div>
-
+      </nav>
     </div>
   </div>
   <script src="../../js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
