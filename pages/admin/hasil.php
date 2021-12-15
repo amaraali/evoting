@@ -20,20 +20,22 @@ require 'ini_header.php';
                               JOIN fakultas ON jurusan.kode_fakultas=fakultas.kode_fakultas
                               WHERE kode_jurusan = $filter_jurusan")[0];
     $hasil_univ = query("SELECT count(*) as suara, id_calon, no_urut, nama_ketua, nama_wakil
-                            FROM vote
-                            JOIN calon ON vote.id_calon = calon.id
-                            WHERE id_calon IN (SELECT id FROM calon WHERE id_tingkatan = 3)
+                            FROM calon
+                            LEFT JOIN VOTE ON vote.id_calon = calon.id
+                            WHERE calon.id_unit = (id_tingkatan=3)
                             GROUP BY id_calon ORDER BY no_urut");
-    $hasil_fakultas = query("SELECT count(*) as suara, id_calon, no_urut, nama_ketua, nama_wakil
-                            FROM vote
-                            JOIN calon ON vote.id_calon = calon.id
-                            WHERE id_calon IN (SELECT id FROM calon WHERE id_tingkatan = 2 AND id_unit = $filter_fakultas[kode_fakultas])
-                            GROUP BY id_calon ORDER BY no_urut");
-    $hasil_jurusan = query("SELECT count(*) as suara, id_calon, no_urut, nama_ketua, nama_wakil
-                            FROM vote
-                            JOIN calon ON vote.id_calon = calon.id
-                            WHERE id_calon IN (SELECT id FROM calon WHERE id_tingkatan = 1 AND id_unit = $filter_jurusan)
-                            GROUP BY id_calon ORDER BY no_urut");
+    $hasil_fakultas = query("SELECT count(vote.id) as suara, calon.id as id_calon, no_urut,     nama_ketua, nama_wakil
+                            FROM calon
+                                LEFT JOIN vote ON vote.id_calon = calon.id
+                            WHERE calon.id_unit = ($filter_fakultas[kode_fakultas])
+                            GROUP BY id_calon
+                            ORDER BY no_urut");
+    $hasil_jurusan = query("SELECT count(vote.id) as suara, calon.id as id_calon, no_urut, nama_ketua, nama_wakil
+                            FROM calon
+                                LEFT JOIN vote ON vote.id_calon = calon.id
+                            WHERE calon.id_unit= $filter_jurusan
+                            GROUP BY id_calon
+                            ORDER BY no_urut");
     // dd($hasil_jurusan);
   }
 

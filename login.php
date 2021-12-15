@@ -2,20 +2,6 @@
 session_start();
 require 'functions.php';
 
-// cek cookie
-// if(isset($_COOKIE['id']) && isset($_COOKIE['key']) ){
-// 	$id = $_COOKIE['id'];
-// 	$key = $_COOKIE['key'];
-
-// 	// cek username berdasarkan cookie
-// 	$result = mysqli_query($conn, "SELECT username FROM users WHERE id=$id" );
-// 	$row = mysqli_fetch_assoc($result);
-
-// 	// cek cookie dan username
-// 	if($key === hash('sha256', $row['username'])) {
-// 		$_SESSION['login'] = true;
-// 	}
-// }
 
 if (isset($_SESSION["login"])) {
   redirect("pages/surat_suara");
